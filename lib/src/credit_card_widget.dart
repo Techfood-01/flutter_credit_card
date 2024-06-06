@@ -24,7 +24,7 @@ import 'utils/typedefs.dart';
 class CreditCardWidget extends StatefulWidget {
   /// A widget showcasing credit card UI.
   const CreditCardWidget({
-    required this.cardNumber,
+    required this.last4,
     required this.expiryDate,
     required this.cardHolderName,
     required this.cvvCode,
@@ -59,8 +59,8 @@ class CreditCardWidget extends StatefulWidget {
     super.key,
   });
 
-  /// A string indicating number on the card.
-  final String cardNumber;
+  /// A string indicating last4 numbers on the card.
+  final String last4;
 
   /// A string indicating expiry date for the card.
   final String expiryDate;
@@ -288,7 +288,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
     }
 
     final CreditCardBrand cardBrand = CreditCardBrand(
-      widget.cardType ?? detectCCType(widget.cardNumber),
+      widget.cardType ?? detectCCType(widget.last4),
     );
     widget.onCreditCardWidgetChange(cardBrand);
 
@@ -434,7 +434,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
               ),
             );
 
-    String number = widget.cardNumber;
+    String number = widget.last4;
     if (widget.obscureCardNumber) {
       final String stripped = number.replaceAll(RegExp(r'[^\d]'), '');
       if (widget.obscureInitialCardNumber && stripped.length > 4) {
@@ -520,7 +520,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
             child: Padding(
               padding: const EdgeInsetsDirectional.only(start: 16),
               child: Text(
-                widget.cardNumber.isEmpty ? AppConstants.sixteenX : number,
+                widget.last4.isEmpty ? AppConstants.sixteenX : number,
                 style: widget.textStyle ?? defaultTextStyle,
               ),
             ),
@@ -732,7 +732,7 @@ class _CreditCardWidgetState extends State<CreditCardWidget>
   }
 
   Widget _getCardTypeIcon() {
-    final CardType ccType = widget.cardType ?? detectCCType(widget.cardNumber);
+    final CardType ccType = widget.cardType ?? detectCCType(widget.last4);
     isAmex = ccType == CardType.americanExpress;
     return getCardTypeImage(
       cardType: ccType,
