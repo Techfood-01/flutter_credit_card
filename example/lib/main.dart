@@ -107,7 +107,7 @@ class MySampleState extends State<MySample> {
                     CreditCardWidget(
                       enableFloatingCard: useFloatingAnimation,
                       glassmorphismConfig: _getGlassmorphismConfig(),
-                      cardNumber: cardNumber,
+                      last4: cardNumber,
                       expiryDate: expiryDate,
                       cardHolderName: cardHolderName,
                       cvvCode: cvvCode,
